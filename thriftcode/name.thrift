@@ -1,4 +1,3 @@
-struct name {
-1:i16 age;
-2:string address;
+service SayName {
+string say(1:string name)
 }
