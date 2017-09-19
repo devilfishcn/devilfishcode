@@ -1,16 +1,18 @@
+# -*- coding: utf-8 -*-
+
 import pika
 
-# ½¨Á¢Ò»¸öÊµÀı
+# å»ºç«‹ä¸€ä¸ªå®ä¾‹
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters('localhost',5672)  # Ä¬ÈÏ¶Ë¿Ú5672£¬¿É²»Ğ´
+    pika.ConnectionParameters('localhost',5672)  # é»˜è®¤ç«¯å£5672ï¼Œå¯ä¸å†™
     )
-# ÉùÃ÷Ò»¸ö¹ÜµÀ£¬ÔÚ¹ÜµÀÀï·¢ÏûÏ¢
+# å£°æ˜ä¸€ä¸ªç®¡é“ï¼Œåœ¨ç®¡é“é‡Œå‘æ¶ˆæ¯
 channel = connection.channel()
-# ÔÚ¹ÜµÀÀïÉùÃ÷queue
+# åœ¨ç®¡é“é‡Œå£°æ˜queue
 channel.queue_declare(queue='hello')
 # RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange.
 channel.basic_publish(exchange='',
-                      routing_key='hello',  # queueÃû×Ö
-                      body='Hello World!')  # ÏûÏ¢ÄÚÈİ
+                      routing_key='hello',  # queueåå­—
+                      body='Hello World!')  # æ¶ˆæ¯å†…å®¹
 print(" [x] Sent 'Hello World!'")
-connection.close()  # ¶ÓÁĞ¹Ø±Õ
+connection.close()  # é˜Ÿåˆ—å…³é—­
