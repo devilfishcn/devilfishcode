@@ -11,7 +11,7 @@ channel = connection.channel()
 # 在管道里声明queue
 channel.queue_declare(queue='hello')
 # RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange.
-channel.basic_publish(exchange='',
+channel.basic_publish(exchange='first',
                       routing_key='hello',  # queue名字
                       body='Hello World!')  # 消息内容
 print(" [x] Sent 'Hello World!'")
