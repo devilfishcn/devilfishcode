@@ -13,7 +13,7 @@ channel = connection.channel()
 channel.queue_declare(queue='hello')
 
 def callback(ch, method, properties, body):  # 四个参数为标准格式
-    #print(ch, method, properties)  # 打印看一下是什么
+    print(ch, method, properties)  # 打印看一下是什么
     # 管道内存对象  内容相关信息  后面讲
     print(" [x] Received %r" % body)
     time.sleep(15)
