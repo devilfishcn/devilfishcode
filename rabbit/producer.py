@@ -9,7 +9,7 @@ connection = pika.BlockingConnection(
 # 声明一个管道，在管道里发消息
 channel = connection.channel()
 # 在管道里声明queue
-channel.queue_declare(queue='hello')
+channel.queue_declare(queue='hello2',durable=True)
 # RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange.
 channel.basic_publish(exchange='',
                       routing_key='hello',  # queue名字
