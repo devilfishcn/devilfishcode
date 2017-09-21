@@ -4,7 +4,7 @@ import time
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
-channel.exchange_declare(exchange='logs',type='fanout')
+channel.exchange_declare('logs','fanout',False,True,False)
 result = channel.queue_declare(exclusive=True)
 queue_name = result.method.queue
 print("random queuename:", queue_name)
