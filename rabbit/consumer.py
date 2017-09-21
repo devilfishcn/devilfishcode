@@ -10,7 +10,7 @@ channel = connection.channel()
 
 # 为什么又声明了一个‘hello’队列？
 # 如果确定已经声明了，可以不声明。但是你不知道那个机器先运行，所以要声明两次。
-channel.queue_declare(queue='hello2')
+channel.queue_declare(queue='hello2',durable=True)
 
 def callback(ch, method, properties, body):  # 四个参数为标准格式
     #print(ch, method, properties)  # 打印看一下是什么
