@@ -14,7 +14,7 @@ channel.queue_declare(queue='hello2',durable=True)
 # RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange.
 
 i = 0
-while(i<0):
+while(i<10):
     i+=1
     msg='hello world '+str(i)
     channel.basic_publish(exchange='',
