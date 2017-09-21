@@ -5,7 +5,7 @@ import time
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672))
 channel = connection.channel()
-channel.exchange_declare(exchange='logs',type='fanout')
+channel.exchange_declare(exchange='logs','fanout')
 
 i = 0
 while(i<10):
