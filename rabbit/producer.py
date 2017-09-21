@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pika
+import time
 
 # 建立一个实例
 connection = pika.BlockingConnection(
@@ -11,11 +12,18 @@ channel = connection.channel()
 # 在管道里声明queue
 channel.queue_declare(queue='hello2',durable=True)
 # RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange.
-channel.basic_publish(exchange='',
-                      routing_key='hello2',  # queue名字
-                      body='Hello World!',
-                      properties=pika.BasicProperties(
-                          delivery_mode=2,  # make message persistent
-                          ))  # 消息内容
-print(" [x] Sent 'Hello World!'")
+
+i = 0
+while(i<0):
+    i+=1
+    msg='hello world '+str(i)
+    channel.basic_publish(exchange='',
+                          routing_key='hello2',  # queue名字
+                          #body='Hello World!',
+                          body=msg,
+                          properties=pika.BasicProperties(
+                              delivery_mode=2,  # make message persistent
+                              ))  # 消息内容
+    time.sleep(2)
+    print "send msg: %s" % msg
 connection.close()  # 队列关闭

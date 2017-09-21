@@ -16,7 +16,7 @@ def callback(ch, method, properties, body):  # 四个参数为标准格式
     #print(ch, method, properties)  # 打印看一下是什么
     # 管道内存对象  内容相关信息  后面讲
     print(" [x] Received %r" % body)
-    time.sleep(15)
+    time.sleep(3)
     ch.basic_ack(delivery_tag = method.delivery_tag)  # 告诉生成者，消息处理完成
 
 channel.basic_consume(  # 消费消息
