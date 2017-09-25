@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import pika
+import sys
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
-channel.exchange_declare(exchange='direct_logs',exchange_type='direct')
-result = channel.queue_declare(exclusive=True)
-queue_name = result.method.queue
-severity = 'info'
-channel.queue_bind(exchange='direct_logs',queue=queue_name,routing_key=severity)
 
-print(' [*] Waiting for logs. To exit press CTRL+C')
+channel.exchange_declare(exchange='topic_logs',
+                         exchange_type='topic')
 
-def callback(ch, method, properties, body):
-    print(" [x] %r:%r" % (method.routing_key, body))
-
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
-channel.start_consuming()
+routing_key = sys.argv[1] if len(sys.argv) > 2 else 'anonymous.info'
+message = ' '.join(sys.argv[2:]) or 'Hello World!'
+channel.basic_publish(exchange='topic_logs',
+                      routing_key=routing_key,
+                      body=message)
+print(" [x] Sent %r:%r" % (routing_key, message))
+connection.close()
