@@ -19,7 +19,7 @@ def callback(ch, method, properties, body):
     #time.sleep(body.count(b'.'))
     #print(" [x] Done")
     ch.basic_ack(delivery_tag = method.delivery_tag)
-    time.sleep(10)
+    time.sleep(5)
 #channel.basic_qos(prefetch_count=1)
 channel.basic_consume(callback,queue='task_queue')
 
