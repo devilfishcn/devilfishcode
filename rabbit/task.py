@@ -11,7 +11,7 @@ channel.queue_declare(queue='task_queue')
 
 
 
-for i in range(10):
+for i in range(10000):
     message = ' '.join(sys.argv[1:]) or "Hello World!"
     message= message +str(i)
     channel.basic_publish(exchange='',routing_key='task_queue',body=message)
